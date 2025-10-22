@@ -31,7 +31,7 @@ setup(
     install_requires=[
         'boto3>=1.20.0',
         'pydantic>=1.8.0',
-        'pyjq>=2.5.0',
+        'jq>=1.0.0',
         'pandas>=1.3.0',
         'xlsxwriter>=3.0.0',
         'pyyaml>=6.0',
@@ -52,6 +52,8 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
         'Topic :: System :: Systems Administration',
         'Topic :: Utilities',
     ],
