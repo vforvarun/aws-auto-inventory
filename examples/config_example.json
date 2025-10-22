@@ -24,7 +24,7 @@
           "name": "EC2Instances",
           "service": "ec2",
           "function": "describe_instances",
-          "result_key": ".Reservations[].Instances[] | {InstanceId, InstanceType, State: .State.Name, Name: (.Tags[]?|select(.Key==\"Name\")|.Value), LaunchTime, PrivateIpAddress, PublicIpAddress, VpcId, SubnetId, SecurityGroups: [.SecurityGroups[].GroupName]}",
+          "result_key": ".Reservations[].Instances[] | {InstanceId, InstanceType, State: .State.Name, LaunchTime, PrivateIpAddress, PublicIpAddress, VpcId, SubnetId}",
           "parameters": {
             "Filters": [
               {
@@ -53,6 +53,12 @@
           "service": "lambda",
           "function": "list_functions",
           "result_key": "Functions"
+        },
+        {
+          "name": "EBSVolumes",
+          "service": "ec2",
+          "function": "describe_volumes",
+          "result_key": ".Volumes[] | {VolumeId, Size, VolumeType, State, AvailabilityZone, Encrypted, Iops, CreateTime, InstanceId: (.Attachments[0].InstanceId // null), Device: (.Attachments[0].Device // null), AttachmentState: (.Attachments[0].State // \"available\")}"
         }
       ]
     }

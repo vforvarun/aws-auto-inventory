@@ -25,7 +25,8 @@ class ServiceResult:
         region: str, 
         result: Any, 
         success: bool = True, 
-        error: Optional[str] = None
+        error: Optional[str] = None,
+        sheet_name: Optional[str] = None
     ):
         """
         Initialize service result.
@@ -37,6 +38,7 @@ class ServiceResult:
             result: API response.
             success: Whether the scan was successful.
             error: Error message if scan failed.
+            sheet_name: Name of the sheet/worksheet for this result.
         """
         self.service = service
         self.function = function
@@ -44,6 +46,7 @@ class ServiceResult:
         self.result = result
         self.success = success
         self.error = error
+        self.sheet_name = sheet_name
     
     def to_dict(self) -> Dict[str, Any]:
         """
@@ -58,7 +61,8 @@ class ServiceResult:
             "region": self.region,
             "result": self.result,
             "success": self.success,
-            "error": self.error
+            "error": self.error,
+            "sheet_name": self.sheet_name
         }
 
 
@@ -118,7 +122,8 @@ class ServiceScanner:
                 service=sheet.service,
                 function=sheet.function,
                 region=region,
-                result=result
+                result=result,
+                sheet_name=sheet.name
             )
         
         except AWSClientError as e:
@@ -132,7 +137,8 @@ class ServiceScanner:
                 region=region,
                 result=None,
                 success=False,
-                error=str(e)
+                error=str(e),
+                sheet_name=sheet.name
             )
         
         except Exception as e:

@@ -204,17 +204,19 @@ class ExcelOutputGenerator:
                                 for service_result in region_result["services"]:
                                     if isinstance(service_result, dict):
                                         service_name = service_result.get("service", "unknown")
+                                        sheet_name = service_result.get("sheet_name", service_name)
                                         success = service_result.get("success", False)
                                         
                                         if success and "result" in service_result:
                                             result_data = service_result["result"]
                                             
-                                            if service_name not in service_data:
-                                                service_data[service_name] = []
+                                            # Use sheet_name for grouping instead of service_name
+                                            if sheet_name not in service_data:
+                                                service_data[sheet_name] = []
                                             
                                             # Process the result data
                                             resources = self._flatten_service_result(result_data, inventory_name, region_name, service_name)
-                                            service_data[service_name].extend(resources)
+                                            service_data[sheet_name].extend(resources)
         
         return service_data
     
