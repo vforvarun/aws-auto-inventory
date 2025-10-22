@@ -394,6 +394,10 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,linux,visualstudiocode,python,node
-output/
+# Generated output files (but not source code in aws_auto_inventory/output/)
+/output/
 logs/
 *.xlsx
+
+# Keep the source code output module
+!/aws_auto_inventory/output/
