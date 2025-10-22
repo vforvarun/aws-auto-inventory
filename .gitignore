@@ -401,3 +401,6 @@ logs/
 
 # Keep the source code output module
 !/aws_auto_inventory/output/
+
+# Misc files
+check_excel_sheets.py
