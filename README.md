@@ -92,7 +92,7 @@ inventories:
       - name: EC2Instances
         service: ec2
         function: describe_instances
-        result_key: Reservations
+        result_key: ".Reservations[].Instances[] | {InstanceId, InstanceType, State: .State.Name, Name: (.Tags[]?|select(.Key==\"Name\")|.Value), LaunchTime, PrivateIpAddress, PublicIpAddress, VpcId, SubnetId}"
         parameters:
           Filters:
             - Name: instance-state-name
@@ -124,7 +124,7 @@ inventories:
           "name": "EC2Instances",
           "service": "ec2",
           "function": "describe_instances",
-          "result_key": "Reservations",
+          "result_key": ".Reservations[].Instances[] | {InstanceId, InstanceType, State: .State.Name, Name: (.Tags[]?|select(.Key==\"Name\")|.Value), LaunchTime, PrivateIpAddress, PublicIpAddress}",
           "parameters": {
             "Filters": [
               {
@@ -163,6 +163,33 @@ inventories:
     sheets:
       # ... sheets configuration ...
 ```
+
+## Best Practices for result_key
+
+The `result_key` parameter is crucial for creating searchable, user-friendly inventory data. Here are recommended approaches:
+
+### ❌ Avoid Nested Data
+```yaml
+# DON'T: This creates hard-to-search nested data
+result_key: Reservations  # Returns nested reservation objects
+```
+
+### ✅ Flatten Complex Structures
+```yaml
+# DO: Flatten EC2 instances for better searchability
+result_key: ".Reservations[].Instances[] | {InstanceId, InstanceType, State: .State.Name, Name: (.Tags[]?|select(.Key==\"Name\")|.Value), LaunchTime, PrivateIpAddress, PublicIpAddress}"
+```
+
+### ✅ Extract Key Properties
+```yaml
+# DO: Extract only the properties you need
+result_key: ".Reservations[].Instances[] | {InstanceId, InstanceType, State: .State.Name}"
+```
+
+### Common Patterns
+- **EC2 Instances**: `.Reservations[].Instances[]` - Flattens instances from reservations
+- **Simple Arrays**: `Buckets`, `Functions`, `Roles` - Direct key extraction
+- **Filtered Data**: `.Items[] | select(.Status == "ACTIVE")` - Filter specific items
 
 ## Output
 

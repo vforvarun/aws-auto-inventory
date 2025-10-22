@@ -24,7 +24,7 @@
           "name": "EC2Instances",
           "service": "ec2",
           "function": "describe_instances",
-          "result_key": "Reservations",
+          "result_key": ".Reservations[].Instances[] | {InstanceId, InstanceType, State: .State.Name, Name: (.Tags[]?|select(.Key==\"Name\")|.Value), LaunchTime, PrivateIpAddress, PublicIpAddress, VpcId, SubnetId, SecurityGroups: [.SecurityGroups[].GroupName]}",
           "parameters": {
             "Filters": [
               {
