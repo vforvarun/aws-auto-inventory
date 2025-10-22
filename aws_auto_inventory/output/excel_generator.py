@@ -36,7 +36,7 @@ class ExcelOutputGenerator:
         """
         if not PANDAS_AVAILABLE:
             self.logger.error("Cannot generate Excel output: pandas not installed")
-            raise ImportError("pandas is required for Excel output. Install with: pip install pandas openpyxl")
+            raise ImportError("pandas is required for Excel output. Install with: pip install pandas xlsxwriter")
         
         self.logger.info("Generating Excel output")
         
@@ -86,7 +86,7 @@ class ExcelOutputGenerator:
             filepath: Path to output file
         """
         try:
-            with pd.ExcelWriter(filepath, engine='openpyxl') as writer:
+            with pd.ExcelWriter(filepath, engine='xlsxwriter') as writer:
                 # Create summary sheet
                 summary_df = self._create_summary_dataframe(results)
                 summary_df.to_excel(writer, sheet_name='Summary', index=False)
