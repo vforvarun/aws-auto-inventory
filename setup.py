@@ -23,9 +23,9 @@ setup(
     description='AWS Auto Inventory - Scan AWS resources and generate inventory',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    author='AWS Samples',
-    author_email='aws-samples@amazon.com',
-    url='https://github.com/aws-samples/aws-auto-inventory',
+    author='Your Name',  # Replace with your name
+    author_email='your.email@example.com',  # Replace with your email
+    url='https://github.com/yourusername/your-repo-name',  # Replace with your repo URL
     packages=find_packages(),
     include_package_data=True,
     install_requires=[

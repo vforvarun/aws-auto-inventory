@@ -1,6 +1,8 @@
-# AWS Auto Inventory
+# AWS Auto Inventory (Python 3.13 Compatible)
 
 A tool for scanning AWS services across regions and accounts to collect resource information.
+
+> **Note**: This is a Python 3.13 compatible version of the original [aws-samples/aws-auto-inventory](https://github.com/aws-samples/aws-auto-inventory) project. The main change is replacing the `pyjq` dependency with `jq` to support Python 3.13, as `pyjq` depends on `lib2to3` which was removed in Python 3.13.
 
 ## Features
 
